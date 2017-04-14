@@ -14,10 +14,12 @@ public class IDontKnowHowToBenchmark {
   public static void main(String[] args) {
     IDontKnowHowToBenchmark b = new IDontKnowHowToBenchmark();
     
+    long instantMilo = System.currentTimeMillis();
     long instant = System.nanoTime();
-    for (int i = 0; i<1000000000; i++) {
+    for (int i = 0; i<1000000; i++) {
       b.method();
     }
+    System.out.println(System.currentTimeMillis() - instantMilo);
     System.out.println(System.nanoTime() - instant);
   }
 }

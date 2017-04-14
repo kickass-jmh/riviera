@@ -65,12 +65,12 @@ public class JmhSimpleBenchmark {
   }
 
   @Benchmark
-  public void measureWrong() {
+  public void measure01_Right() {
     x.indexOf("aaa");
   }
 
   @Benchmark
-  public int measureRight() {
+  public int measure02_Right() {
     return x.indexOf("aaa");
   }
 
