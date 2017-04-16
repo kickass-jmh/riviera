@@ -65,13 +65,13 @@ public class JmhSimpleBenchmark {
   }
 
   @Benchmark
-  public void measure01_Right() {
-    x.indexOf("aaa");
+  public void measure01_Wrong() {
+    x.indexOf("nb");
   }
 
   @Benchmark
   public int measure02_Right() {
-    return x.indexOf("aaa");
+    return x.indexOf("nb");
   }
 
   public static void main(String[] args) throws RunnerException {
