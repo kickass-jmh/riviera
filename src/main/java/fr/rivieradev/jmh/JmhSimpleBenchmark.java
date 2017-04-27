@@ -33,50 +33,54 @@ package fr.rivieradev.jmh;
 
 import org.openjdk.jmh.annotations.Benchmark;
 import org.openjdk.jmh.annotations.BenchmarkMode;
+import org.openjdk.jmh.annotations.Fork;
+import org.openjdk.jmh.annotations.Measurement;
 import org.openjdk.jmh.annotations.Mode;
 import org.openjdk.jmh.annotations.OutputTimeUnit;
 import org.openjdk.jmh.annotations.Scope;
 import org.openjdk.jmh.annotations.Setup;
 import org.openjdk.jmh.annotations.State;
+import org.openjdk.jmh.annotations.Warmup;
+import org.openjdk.jmh.profile.HotspotCompilationProfiler;
+import org.openjdk.jmh.profile.HotspotRuntimeProfiler;
+import org.openjdk.jmh.profile.StackProfiler;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
 import java.math.BigInteger;
 import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
+import javax.swing.plaf.basic.BasicScrollPaneUI.HSBChangeListener;
+
 @State(Scope.Thread)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.NANOSECONDS)
+@Fork(1)
+@Warmup(iterations=1)
+@Measurement(iterations=5)
 public class JmhSimpleBenchmark {
 
-  String x;
+  String a;
 
   @Setup
   public void prepare() {
-    x = new BigInteger(8000, new Random()).toString(32);
+    a = new BigInteger(8000, new Random()).toString(32);
   }
   
   @Benchmark
-  public void doNothing() {
-    // do nothing, how fast is a method
-  }
-
-  @Benchmark
-  public void measure01_Wrong() {
-    x.indexOf("nb");
-  }
-
-  @Benchmark
-  public int measure02_Right() {
-    return x.indexOf("nb");
-  }
-
+  public int search() {
+    return a.indexOf("nb");
+  }  
+  
   public static void main(String[] args) throws RunnerException {
-    Options opt = new OptionsBuilder().include(JmhSimpleBenchmark.class.getSimpleName()).warmupIterations(5)
-                                      .measurementIterations(5).forks(1).build();
+    Options opt = new OptionsBuilder().include(JmhSimpleBenchmark.class.getSimpleName()).build();
 
     new Runner(opt).run();
   }
