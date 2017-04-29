@@ -1,11 +1,11 @@
 package fr.rivieradev.jmh;
 
 import org.openjdk.jmh.annotations.*;
+import org.openjdk.jmh.profile.CompilerProfiler;
 import org.openjdk.jmh.runner.Runner;
 import org.openjdk.jmh.runner.RunnerException;
 import org.openjdk.jmh.runner.options.Options;
 import org.openjdk.jmh.runner.options.OptionsBuilder;
-import sun.jvm.hotspot.runtime.Thread;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -19,18 +19,10 @@ import java.util.concurrent.TimeUnit;
  */
 @Warmup(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
 @Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
-@BenchmarkMode(Mode.SampleTime)
+@BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
 @Fork(1)
 public class MapConcurrency {
-
-    public static void main(String[] args) throws RunnerException {
-        Options opt = new OptionsBuilder()
-                .include(MapConcurrency.class.getSimpleName())
-                .build();
-
-        new Runner(opt).run();
-    }
 
     @Benchmark
     @Threads(1)
@@ -69,4 +61,14 @@ public class MapConcurrency {
             Collections.shuffle(ids);
         }
     }
+
+    public static void main(String[] args) throws RunnerException {
+        Options opt = new OptionsBuilder()
+                .include(MapConcurrency.class.getSimpleName())
+                .addProfiler(CompilerProfiler.class)
+                .build();
+
+        new Runner(opt).run();
+    }
+
 }
