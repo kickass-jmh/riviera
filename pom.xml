@@ -30,6 +30,11 @@
 			<version>1.18</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>com.github.biboudis</groupId>
+			<artifactId>jmh-profilers</artifactId>
+			<version>0.1.4-SNAPSHOT</version>
+		</dependency>
 	</dependencies>
 
 	<build>
