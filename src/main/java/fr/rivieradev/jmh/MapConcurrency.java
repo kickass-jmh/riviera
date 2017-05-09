@@ -39,10 +39,11 @@ import org.openjdk.jmh.runner.options.OptionsBuilder;
  * benchmark and explicitly define state scope, i.e. per thread, per benchmark.k
  * </p>
  */
-@Warmup(iterations = 5, time = 5, timeUnit = TimeUnit.SECONDS)
-@Measurement(iterations = 5, time = 5, timeUnit = TimeUnit.SECONDS)
+@Warmup(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
+@Measurement(iterations = 5, time = 1, timeUnit = TimeUnit.SECONDS)
 @BenchmarkMode(Mode.Throughput)
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
+//@Fork(value = 1, jvmArgs= {"-XX:+UnlockCommercialFeatures"})
 @Fork(1)
 public class MapConcurrency {
 
@@ -97,7 +98,7 @@ public class MapConcurrency {
 
 	public static void main(String[] args) throws RunnerException {
 		Options opt = new OptionsBuilder().include(MapConcurrency.class.getSimpleName())
-				// .addProfiler(StackProfiler.class)
+				//.addProfiler(StackProfiler.class)
 				.build();
 		new Runner(opt).run();
 	}
