@@ -4,10 +4,12 @@ import java.math.BigInteger;
 import java.util.Random;
 
 public class MyFirstBenchmark {
+	
+  // Create a 1600-characters-long string version of a base 32 number
   String a = new BigInteger(8000, new Random()).toString(32);
   
   private int search() {
-    return a.indexOf("nb");
+    return a.indexOf("lg");
   }
   
   private void repeat(int repeats) {
@@ -21,6 +23,6 @@ public class MyFirstBenchmark {
     int iterations = 1;
     long start = System.currentTimeMillis();
     mfb.repeat(iterations);
-    System.out.println((System.currentTimeMillis() - start)/(double)iterations);
+    System.out.println((System.currentTimeMillis() - start) / iterations);
   }
 }
